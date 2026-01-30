@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Регистрация - ГеоПроект{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <h1>Регистрация</h1>
+
+    <form method="POST" class="auth-form">
+        <div class="form-group">
+            <input type="text" name="username" placeholder="Имя пользователя" required>
+        </div>
+        <div class="form-group">
+            <input type="email" name="email" placeholder="Email" required>
+        </div>
+        <div class="form-group">
+            <input type="password" name="password" placeholder="Пароль" required>
+        </div>
+        <button type="submit" class="btn-primary">Зарегистрироваться</button>
+    </form>
+
+    <p class="auth-link">
+        Уже есть аккаунт? <a href="{{ url_for('login') }}">Войдите</a>
+    </p>
+</div>
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}Главная - ГеоПроект{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <h1>Профессиональные кадастровые и проектные работы</h1>
+    <p>Опытные специалисты, современное оборудование, гарантия качества</p>
+    <div class="hero-buttons">
+        <a href="{{ url_for('cadastral') }}" class="btn-primary">
+            <i class="fas fa-map-marked-alt"></i> Кадастровые работы
+        </a>
+        <a href="{{ url_for('project') }}" class="btn-secondary">
+            <i class="fas fa-drafting-compass"></i> Проектные работы
+        </a>
+    </div>
+</div>
+
+<div class="about-section">
+    <h2>О компании</h2>
+    <p>Компания "ГеоПроект" работает на рынке кадастровых и проектных услуг более 10 лет. Мы предлагаем полный спектр услуг в области геодезии, кадастра и проектирования.</p>
+
+    <div class="features">
+        <div class="feature">
+            <i class="fas fa-award"></i>
+            <h3>Опыт</h3>
+            <p>Более 10 лет успешной работы</p>
+        </div>
+        <div class="feature">
+            <i class="fas fa-users"></i>
+            <h3>Команда</h3>
+            <p>Профессиональные специалисты</p>
+        </div>
+        <div class="feature">
+            <i class="fas fa-shield-alt"></i>
+            <h3>Гарантия</h3>
+            <p>Гарантия качества работ</p>
+        </div>
+        <div class="feature">
+            <i class="fas fa-clock"></i>
+            <h3>Сроки</h3>
+            <p>Соблюдение сроков выполнения</p>
+        </div>
+    </div>
+</div>
+
+<div class="request-form">
+    <h2>Оставить заявку</h2>
+    <form action="{{ url_for('send_request') }}" method="POST">
+        <input type="hidden" name="service_type" value="общий запрос">
+        <div class="form-group">
+            <input type="text" name="name" placeholder="Ваше имя" required>
+        </div>
+        <div class="form-group">
+            <input type="tel" name="phone" placeholder="Телефон" required>
+        </div>
+        <div class="form-group">
+            <input type="email" name="email" placeholder="Email" required>
+        </div>
+        <div class="form-group">
+            <textarea name="message" placeholder="Сообщение" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="btn-primary">Отправить заявку</button>
+    </form>
+</div>
+{% endblock %}

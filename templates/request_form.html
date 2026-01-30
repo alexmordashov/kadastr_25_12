@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Новая заявка - ГеоПроект{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <h1>Создание новой заявки</h1>
+
+    <form method="POST" enctype="multipart/form-data" class="auth-form">
+        <div class="form-group">
+            <label for="service_type">Тип услуги:</label>
+            <select name="service_type" id="service_type" required>
+                <option value="">Выберите услугу</option>
+                <optgroup label="Кадастровые работы">
+                    <option value="Межевание земельных участков">Межевание земельных участков</option>
+                    <option value="Кадастровая съемка">Кадастровая съемка</option>
+                    <option value="Постановка на кадастровый учет">Постановка на кадастровый учет</option>
+                    <option value="Технический план">Технический план</option>
+                </optgroup>
+                <optgroup label="Проектные работы">
+                    <option value="Архитектурное проектирование">Архитектурное проектирование</option>
+                    <option value="Конструктивные решения">Конструктивные решения</option>
+                    <option value="Инженерные системы">Инженерные системы</option>
+                    <option value="Дизайн интерьера">Дизайн интерьера</option>
+                </optgroup>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Описание задачи:</label>
+            <textarea name="description" id="description" rows="6" placeholder="Подробно опишите вашу задачу..." required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="file">Прикрепить файл (опционально):</label>
+            <input type="file" name="file" id="file">
+            <small>Максимальный размер файла: 16MB</small>
+        </div>
+
+        <button type="submit" class="btn-primary">Отправить заявку</button>
+        <a href="{{ url_for('dashboard') }}" class="btn-secondary">Отмена</a>
+    </form>
+</div>
+{% endblock %}

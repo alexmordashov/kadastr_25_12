@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Кадастровые работы - ГеоПроект{% endblock %}
+
+{% block content %}
+<h1>Кадастровые работы</h1>
+<p class="page-description">Полный спектр кадастровых услуг для физических и юридических лиц.</p>
+
+<div class="services-grid">
+    {% for service in services %}
+    <div class="service-card">
+        <div class="service-icon">
+            <i class="fas fa-map"></i>
+        </div>
+        <h3>{{ service.title }}</h3>
+        <p>{{ service.description }}</p>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="request-form">
+    <h2>Заявка на кадастровые работы</h2>
+    <form action="{{ url_for('send_request') }}" method="POST">
+        <input type="hidden" name="service_type" value="кадастровые работы">
+        <div class="form-group">
+            <input type="text" name="name" placeholder="Ваше имя" required>
+        </div>
+        <div class="form-group">
+            <input type="tel" name="phone" placeholder="Телефон" required>
+        </div>
+        <div class="form-group">
+            <input type="email" name="email" placeholder="Email" required>
+        </div>
+        <div class="form-group">
+            <textarea name="message" placeholder="Опишите вашу задачу" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="btn-primary">Отправить заявку</button>
+    </form>
+</div>
+{% endblock %}

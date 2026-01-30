@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Личный кабинет - ГеоПроект{% endblock %}
+
+{% block content %}
+<div class="dashboard-header">
+    <h1>Личный кабинет</h1>
+    <p>Добро пожаловать, {{ current_user.username }}!</p>
+    <a href="{{ url_for('new_request') }}" class="btn-primary">
+        <i class="fas fa-plus"></i> Новая заявка
+    </a>
+</div>
+
+<div class="requests-list">
+    <h2>Мои заявки</h2>
+
+    {% if requests %}
+        <div class="requests-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Дата</th>
+                        <th>Тип услуги</th>
+                        <th>Описание</th>
+                        <th>Статус</th>
+                        <th>Файл</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for req in requests %}
+                    <tr>
+                        <td>{{ req.created_at.strftime('%d.%m.%Y') }}</td>
+                        <td>{{ req.service_type }}</td>
+                        <td>{{ req.description[:100] }}{% if req.description|length > 100 %}...{% endif %}</td>
+                        <td class="status-{{ req.status }}">{{ req.status }}</td>
+                        <td>
+                            {% if req.filename %}
+                                <a href="{{ url_for('uploaded_file', filename=req.filename) }}" target="_blank">
+                                    <i class="fas fa-download"></i>
+                                </a>
+                            {% else %}
+                                —
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p class="no-requests">У вас пока нет заявок.</p>
+    {% endif %}
+</div>
+{% endblock %}
