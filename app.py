@@ -13,18 +13,14 @@ from config import Config
 app = Flask(__name__)
 app.config.from_object(Config)
 
-# Создаем папку для загрузок
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
-# Инициализация базы данных
 db = SQLAlchemy(app)
 
-# Инициализация Flask-Login
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
 
-# Модели базы данных
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
@@ -50,7 +46,6 @@ def load_user(user_id):
 
 
 def send_email(subject, recipient, body):
-    """Функция отправки email"""
     try:
         msg = MIMEMultipart()
         msg['From'] = app.config['MAIL_DEFAULT_SENDER']
@@ -70,7 +65,6 @@ def send_email(subject, recipient, body):
         return False
 
 
-# Маршруты
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -78,7 +72,6 @@ def index():
 
 @app.route('/cadastral')
 def cadastral():
-    # Примеры услуг для кадастровых работ
     services = [
         {'id': 1, 'title': 'Межевание земельных участков', 'description': 'Определение границ земельного участка'},
         {'id': 2, 'title': 'Кадастровая съемка', 'description': 'Полевые измерения и съемка'},
@@ -92,7 +85,6 @@ def cadastral():
 
 @app.route('/project')
 def project():
-    # Примеры услуг для проектных работ
     services = [
         {'id': 1, 'title': 'Архитектурное проектирование', 'description': 'Разработка архитектурных решений'},
         {'id': 2, 'title': 'Конструктивные решения', 'description': 'Расчет и проектирование конструкций'},
@@ -116,7 +108,6 @@ def send_request():
         flash('Пожалуйста, заполните все обязательные поля', 'danger')
         return redirect(request.referrer)
 
-    # Формируем текст письма
     body = f"""
     Новая заявка с сайта:
 
@@ -129,21 +120,13 @@ def send_request():
     Дата: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
     """
 
-    # Отправляем email (в реальном проекте настройте SMTP)
     subject = f'Новая заявка: {service_type}'
-    recipient = 'company@example.com'  # Замените на реальный email компании
+    recipient = 'company@example.com'
 
-    # Вместо реальной отправки, просто логируем
     print("=" * 50)
     print("НОВАЯ ЗАЯВКА:")
     print(body)
     print("=" * 50)
-
-    # Здесь можно раскомментировать для реальной отправки:
-    # if send_email(subject, recipient, body):
-    #     flash('Заявка отправлена успешно! Мы свяжемся с вами в ближайшее время.', 'success')
-    # else:
-    #     flash('Ошибка при отправке заявки. Пожалуйста, попробуйте позже.', 'danger')
 
     flash('Заявка отправлена успешно! Мы свяжемся с вами в ближайшее время.', 'success')
     return redirect(request.referrer)
