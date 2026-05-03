@@ -8,7 +8,6 @@ class Config:
     SQLALCHEMY_DATABASE_URI = 'sqlite:///site.db'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-    # Настройки почты
     MAIL_SERVER = 'smtp.yandex.ru'
     MAIL_PORT = 465
     MAIL_USE_TLS = True
@@ -16,6 +15,5 @@ class Config:
     MAIL_PASSWORD = 'dzjniishqistktzd'
     MAIL_DEFAULT_SENDER = 'artembespechalov@yandex.ru'
 
-    # Папка для загрузки файлов
     UPLOAD_FOLDER = 'uploads'
-    MAX_CONTENT_LENGTH = 16 * 1024 * 1024  # 16MB max file size
+    MAX_CONTENT_LENGTH = 16 * 1024 * 1024
